@@ -26,52 +26,50 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center_horizontal"
                 android:gravity="center_horizontal"
-                android:paddingBottom="20dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="邀请您的第一位好友"
-                    android:layout_marginTop="20dp"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="#FF333333"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="在地图上查看实时位置信息"
-                    android:layout_marginTop="10dp"
-                    android:textColor="#FF333333"/>
+                android:orientation="vertical"
+                android:paddingBottom="20dp">
 
                 <ImageView
                     android:layout_width="105dp"
                     android:layout_height="75dp"
-                    android:src="@mipmap/safetyicon"
                     android:layout_marginTop="25dp"
-                    />
+                    android:src="@mipmap/safetyicon" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="在地图上查看实时位置信息"
+                    android:textColor="#FF333333" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="邀请您的第一位好友"
+                    android:textColor="#FF333333"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
                 <com.xuexiang.xui.widget.alpha.XUIAlphaRelativeLayout
                     android:id="@+id/btnInvite"
                     android:layout_width="150dp"
                     android:layout_height="34dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="15dp"
                     android:background="@drawable/shape_theme_btn"
                     android:clickable="true"
-                    android:focusable="true"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginTop="15dp"
-                    android:layout_centerHorizontal="true"
-                    >
+                    android:focusable="true">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
                         android:layout_centerInParent="true"
                         android:drawablePadding="4dp"
-                        android:textColor="@color/white"
-                        android:text="立即邀请"/>
+                        android:gravity="center"
+                        android:text="立即邀请"
+                        android:textColor="@color/white" />
 
                 </com.xuexiang.xui.widget.alpha.XUIAlphaRelativeLayout>
 

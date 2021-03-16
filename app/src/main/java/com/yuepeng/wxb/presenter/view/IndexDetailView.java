@@ -1,4 +1,5 @@
 package com.yuepeng.wxb.presenter.view;
 
-interface IndexDetailView {
+public interface IndexDetailView extends BaseListDetailView{
+
 }

@@ -41,6 +41,12 @@ android {
         }
     }
 
+    packagingOptions {
+        exclude 'META-INF/library_release.kotlin_module'
+
+    }
+
+
     buildTypes {
         release {
             minifyEnabled false
@@ -100,6 +106,7 @@ dependencies {
     api rootProject.ext.androidx["multidex"]
     api rootProject.ext.androidx["recyclerview"]
     api rootProject.ext.androidx["lifecycle-extensions"]
+
 
     implementation (name: 'thirdlibrary', ext:'aar')
 
@@ -191,4 +198,8 @@ dependencies {
     api rootProject.ext.dependencies["backgroundlib"]
     implementation 'org.xutils:xutils:3.5.0'
 //    implementation 'com.github.vondear:RxTools:v1.7.6'//请替换成上方 JitPack 最新的版本号
+
+    //2.0 newAdd
+    implementation 'com.readystatesoftware.systembartint:systembartint:1.0.3'
+    implementation 'com.zackratos.ultimatebarx:ultimatebarx:0.2.0'
 }

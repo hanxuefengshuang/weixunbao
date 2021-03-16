@@ -3,10 +3,14 @@ package com.yuepeng.wxb.ui.activity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.gyf.immersionbar.ImmersionBar;
+import com.hjq.toast.ToastUtils;
 import com.lxj.xpopup.XPopup;
 import com.wstro.thirdlibrary.base.BaseResponse;
 import com.wstro.thirdlibrary.utils.RegexUtil;
@@ -23,7 +27,10 @@ import com.yuepeng.wxb.utils.PreUtils;
 @Route(path = RouterPath.Main.F_LOGIN)
 public class LoginActivity extends BaseActivity<ActivityLoginBinding, LoginPresenter> implements LoginDetailView, View.OnClickListener {
 
+    private boolean isAgree = false;
+
     AgreementPop pop;
+
     @Override
     protected View injectTarget() {
         return null;
@@ -55,7 +62,7 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding, LoginPrese
     @Override
     protected void initData() {
         boolean first = PreUtils.getBoolean(PreUtils.KEY_FIRSTLOGIN);
-        if (first){
+        if (first) {
             pop = (AgreementPop) new XPopup.Builder(this)
                     .dismissOnBackPressed(false)
                     .dismissOnTouchOutside(false)
@@ -77,6 +84,7 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding, LoginPrese
         mBinding.btnLogin.setOnClickListener(this);
         mBinding.serviceAgreement.setOnClickListener(this);
         mBinding.privacyAgreement.setOnClickListener(this);
+        mBinding.serviceIsAgree.setOnClickListener(this);
         mBinding.etMobile.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -98,7 +106,7 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding, LoginPrese
 
     @Override
     public void onGetCodeSuccess(String code) {
-       // toast(code);
+        // toast(code);
         showSuccessDialog("发送成功");
         mBinding.cvLoginCountdown.start();
     }
@@ -129,38 +137,56 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding, LoginPrese
     @Override
     public void onClick(View view) {
         int id = view.getId();
-        if (id == R.id.cv_login_countdown){
-            if (!RegexUtil.checkMobile(getEditText(mBinding.etMobile))){
+        if (id == R.id.cv_login_countdown) {
+            if (!RegexUtil.checkMobile(getEditText(mBinding.etMobile))) {
                 mBinding.tilMobile.setError("请输入正确的手机号");
                 return;
             }
-            if (getEditText(mBinding.etMobile).isEmpty()){
+            if (getEditText(mBinding.etMobile).isEmpty()) {
                 mBinding.tilMobile.setError("手机号不能为空");
                 return;
             }
             mBinding.tilMobile.setErrorEnabled(false);
             mPresenter.getCode(getEditText(mBinding.etMobile));
         }
-        if (id == R.id.btnLogin){
-            if (!RegexUtil.checkMobile(getEditText(mBinding.etMobile))){
+        if (id == R.id.btnLogin) {
+            if (!RegexUtil.checkMobile(getEditText(mBinding.etMobile))) {
                 mBinding.tilMobile.setError("请输入正确的手机号");
                 return;
             }
-            if (getEditText(mBinding.etCode).length()<4){
+            if (getEditText(mBinding.etCode).length() < 4) {
                 mBinding.tilCode.setError("请正确输入验证码");
                 return;
             }
-            mPresenter.getLoginInfo(getEditText(mBinding.etCode),getEditText(mBinding.etMobile));
+            if (!isAgree) {
+                Toast toast = Toast.makeText(getApplicationContext(), "请同意用户服务协议和隐私协议", Toast.LENGTH_SHORT);
+                toast.show();
+                return;
+            }
+
+            mPresenter.getLoginInfo(getEditText(mBinding.etCode), getEditText(mBinding.etMobile));
         }
-        if (id == R.id.service_agreement){
-            Bundle bundle = new Bundle();
-            bundle.putInt("TYPE",0);
-            openActivity(PrivacyPolicyActivity.class,bundle);
+        if (id == R.id.service_isAgree) {
+            isAgree = !isAgree;
+            ImageView isAgreeImg = findViewById(R.id.service_isAgree);
+            if (isAgree == true) {
+                isAgreeImg.setImageDrawable(getResources().getDrawable(R.drawable.agree_select));
+            } else {
+                isAgreeImg.setImageDrawable(getResources().getDrawable(R.drawable.agree_unselect));
+            }
+            Log.i("msg", String.valueOf(isAgree));
+
         }
-        if (id == R.id.privacy_agreement){
+
+        if (id == R.id.service_agreement) {
             Bundle bundle = new Bundle();
-            bundle.putInt("TYPE",1);
-            openActivity(PrivacyPolicyActivity.class,bundle);
+            bundle.putInt("TYPE", 0);
+            openActivity(PrivacyPolicyActivity.class, bundle);
+        }
+        if (id == R.id.privacy_agreement) {
+            Bundle bundle = new Bundle();
+            bundle.putInt("TYPE", 1);
+            openActivity(PrivacyPolicyActivity.class, bundle);
         }
     }
 

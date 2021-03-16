@@ -122,17 +122,17 @@
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             >
+
             <com.scwang.smartrefresh.layout.SmartRefreshLayout
                 android:id="@+id/refreshLayout"
                 android:layout_width="match_parent"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-                <com.scwang.smartrefresh.layout.header.ClassicsHeader
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:srlClassicsSpinnerStyle="Translate"/>
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0"
+                tools:layout_editor_absoluteX="-65dp">
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv"
                     android:layout_width="match_parent"
@@ -140,8 +140,14 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="3dp"
-                    android:paddingBottom="30dp"/>
+                    android:paddingBottom="30dp" />
+
                 <com.scwang.smartrefresh.layout.footer.ClassicsFooter
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:srlClassicsSpinnerStyle="Translate" />
+
+                <com.scwang.smartrefresh.layout.header.ClassicsHeader
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:srlClassicsSpinnerStyle="Translate" />

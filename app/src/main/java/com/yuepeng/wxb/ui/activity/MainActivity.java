@@ -13,7 +13,9 @@ import com.yuepeng.wxb.R;
 import com.yuepeng.wxb.base.BaseActivity;
 import com.yuepeng.wxb.databinding.ActivityMainBinding;
 import com.yuepeng.wxb.location.ForegroundService;
+import com.yuepeng.wxb.ui.fragment.FindFragment;
 import com.yuepeng.wxb.ui.fragment.FriendFragment;
+import com.yuepeng.wxb.ui.fragment.IndexFragment;
 import com.yuepeng.wxb.ui.fragment.MapFragment;
 import com.yuepeng.wxb.ui.fragment.MineFragment;
 import com.yuepeng.wxb.ui.pop.InviteFriendPop;
@@ -26,11 +28,11 @@ import androidx.fragment.app.Fragment;
 
 public class MainActivity extends BaseActivity<ActivityMainBinding, BasePresenter> implements EasyNavigationBar.OnCenterTabSelectListener, EasyNavigationBar.OnTabClickListener, EasyNavigationBar.OnTabLoadListener {
 
-    private String[]tabText = {"好友","我的"};
+    private String[]tabText = {"首页","好友","发现","我的"};
     private @DrawableRes
-    int[] normalIcon = {R.mipmap.friend_unselect, R.mipmap.mine_unselect };
+    int[] normalIcon = {R.mipmap.index_unselect,R.mipmap.friend_unselect,R.mipmap.find_unselect, R.mipmap.mine_unselect };
     private @DrawableRes
-    int[] selectIcon = {R.mipmap.friend_select, R.mipmap.mine_select};
+    int[] selectIcon = {R.mipmap.index_select,R.mipmap.friend_select,R.mipmap.find_select, R.mipmap.mine_select};
     private InviteFriendPop inviteFriendPop;
     @Override
     protected View injectTarget() {
@@ -55,7 +57,9 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, BasePresente
     @Override
     protected void initView() {
         List<Fragment> fragments = new ArrayList<>();
+        fragments.add(new IndexFragment());
         fragments.add(new FriendFragment());
+        fragments.add(new FindFragment());
         fragments.add(new MineFragment());
         fragments.add(new MapFragment());
         mBinding.enb.titleItems(tabText)
@@ -88,7 +92,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, BasePresente
 
     @Override
     public boolean onCenterTabSelectEvent(View view) {
-        mBinding.enb.selectTab(2,false);
+        mBinding.enb.selectTab(4,false);
         return false;
     }
 
@@ -104,7 +108,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, BasePresente
 
     @Override
     public void onTabLoadCompleteEvent() {
-        mBinding.enb.selectTab(2,false);
+        mBinding.enb.selectTab(4,false);
     }
 
     @Override
@@ -130,8 +134,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, BasePresente
                 firstVisible = false;
                 break;
 
-            case EventCode.Main.GOTOFRIENDLIST:
-                mBinding.enb.selectTab(0,false);
+            case EventCode.Main.ALREADYISVIP:
+                mBinding.enb.selectTab(2,false);
                 break;
         }
     }

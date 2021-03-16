@@ -86,6 +86,7 @@ public abstract class BaseFragment<DB extends ViewDataBinding,T extends BasePres
         mRouter.inject(this);
         EventBus.getDefault().register(this);
         mPresenter = createPresenter();
+
     }
 
 

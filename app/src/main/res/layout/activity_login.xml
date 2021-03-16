@@ -124,6 +124,15 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="35dp"
             android:orientation="horizontal">
+
+            <com.android.library.YLCircleImageView
+                android:id="@+id/service_isAgree"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="5dp"
+                android:src="@drawable/agree_unselect"
+                />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

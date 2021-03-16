@@ -1,4 +1,4 @@
 package com.yuepeng.wxb.presenter.view;
 
-interface FindDetailView {
+public interface FindDetailView extends BaseListDetailView {
 }
